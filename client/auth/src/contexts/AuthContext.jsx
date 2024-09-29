@@ -1,27 +1,27 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ chidern }) => {
- 
+export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [userData, setUserData] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const storedData = JSON.parse(localStorage.getItem('user_data'));
 
     useEffect(() => {
-        if(storedData){
+        if (storedData) {
             const { userToken, user } = storedData;
             setToken(userToken);
             setUserData(user);
             setIsAuthenticated(true);
         }
-    }, []);
+    }, [storedData]);
 
     const login = (newToken, newData) => {
         localStorage.setItem(
             'user_data',
-            JSON.stringify({ userToken: newToken, user: newData }),
+            JSON.stringify({ userToken: newToken, user: newData })
         );
 
         setToken(newToken);
@@ -34,15 +34,20 @@ export const AuthProvider = ({ chidern }) => {
         setToken(null);
         setUserData(null);
         setIsAuthenticated(false);
-    }
+    };
 
-  return (
-    <AuthContext.Provider
-      value={( token, userData, isAuthenticated, login, logout )}
-    >
-        {chidern}
-    </AuthContext.Provider>
-  )
-}
+    return (
+        <AuthContext.Provider
+            value={{ token, userData, isAuthenticated, login, logout }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+// Add PropTypes validation
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired, // Ensure 'children' is required and of the correct type
+};
 
 export const useAuth = () => useContext(AuthContext);

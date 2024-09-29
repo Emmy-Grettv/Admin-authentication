@@ -1,6 +1,6 @@
-impo
+import { useState } from "react";
 import { message } from "antd";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../contexts/AuthContext.jsx"
 
 const useSignup = () => {
     const {login } = useAuth();
@@ -37,9 +37,7 @@ const useSignup = () => {
         }
     }
 
-  return (
-    <div>useSignup</div>
-  )
+  return { loading, error, registerUser };
 }
 
 export default useSignup

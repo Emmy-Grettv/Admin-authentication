@@ -1,10 +1,12 @@
-import { Card, Flex, Typography, Form, Input, Button } from 'antd';
+import { Alert, Card, Flex, Typography, Form, Input, Button, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import registerImage from '../assets/register.jpg'
+import useSignup from '../hooks/useSignup';
 
 export const Register = () => {
+    const { loading, error, registerUser } = useSignup();
     const handleRegister = (values) => {
-        console.log(values);
+        registerUser(values);
     }
 
     return (
@@ -73,7 +75,7 @@ export const Register = () => {
                                 <Input.Password size='large' placeholder='Re-enter your password' />
                             </Form.Item>
 
-                           {/* { error &&(
+                           { error &&(
                              <Alert 
                                description= {error}
                                type='error'
@@ -81,18 +83,18 @@ export const Register = () => {
                                closable
                                className='alert'
                             />
-                           )} */}
+                           )}
 
                             <Form.Item>
                                 <Button 
-                                    // type={`${loading ? '' : 'primary'}`}
+                                    type={`${loading ? '' : 'primary'}`}
                                     htmlType='submit'
                                     size='large'
                                     className='btn'
                                 >
-                                    {/* {
+                                    {
                                         loading ? <Spin /> : 'Create account'
-                                    } */}
+                                    }
                                     create account
                                 </Button>
                             </Form.Item>
