@@ -3,7 +3,7 @@ import { message } from "antd";
 import { useAuth } from "../contexts/AuthContext";
 
 const useSignup = () => {
-  const {login } = useAuth();
+  const { login } = useAuth() || {};
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
 
@@ -32,7 +32,7 @@ const useSignup = () => {
       } else {
         message.error("Registration failed!");
       }
-    } catch (error) {
+     } catch (error) {
       message.error("An error occurred: " + error.message);
     } finally {
       setLoading(false);
