@@ -1,3 +1,4 @@
+// AuthContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ token, userData, isAuthenticated, login, logout }}
+            value={ token, userData, isAuthenticated, login, logout }
         >
             {children}
         </AuthContext.Provider>
@@ -47,7 +48,8 @@ export const AuthProvider = ({ children }) => {
 
 // Add PropTypes validation
 AuthProvider.propTypes = {
-    children: PropTypes.node.isRequired, // Ensure 'children' is required and of the correct type
+    children: PropTypes.node.isRequired,
 };
 
+// Custom hook to use the Auth context
 export const useAuth = () => useContext(AuthContext);

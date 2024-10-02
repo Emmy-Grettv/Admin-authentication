@@ -1,10 +1,12 @@
-import { Card, Flex, Typography, Form, Input, Button } from 'antd';
+import { Alert, Spin, Card, Flex, Typography, Form, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import loginImage from '../assets/login.jpg'
+import useLogin from '../hooks/useLogin';
 
 export const Login = () => {
+    const { error, loading, loginUser } = useLogin();
     const handleLogin = (values) => {
-        console.log(values);
+        loginUser(values);
     }
 
     return (
@@ -50,7 +52,7 @@ export const Login = () => {
                             >
                                 <Input.Password size='large' placeholder='Enter your password' />
                             </Form.Item>
-                           {/* { error &&(
+                           { error &&(
                              <Alert 
                                description= {error}
                                type='error'
@@ -58,19 +60,18 @@ export const Login = () => {
                                closable
                                className='alert'
                             />
-                           )} */}
+                           )}
 
                             <Form.Item>
                                 <Button 
-                                    // type={`${loading ? '' : 'primary'}`}
+                                    type={`${loading ? '' : 'primary'}`}
                                     htmlType='submit'
                                     size='large'
                                     className='btn'
                                 >
-                                    {/* {
-                                        loading ? <Spin /> : 'Create account'
-                                    } */}
-                                    Sign In
+                                    {
+                                        loading ? <Spin /> : 'Sign In'
+                                    }
                                 </Button>
                             </Form.Item>
                             <Form.Item>

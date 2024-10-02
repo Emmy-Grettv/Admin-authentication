@@ -95,7 +95,7 @@ export const Register = () => {
                                     {
                                         loading ? <Spin /> : 'Create account'
                                     }
-                                    create account
+                                   
                                 </Button>
                             </Form.Item>
                             <Form.Item>
